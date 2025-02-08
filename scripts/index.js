@@ -1,9 +1,35 @@
-// @todo: Темплейт карточки
+import { initialCards } from './cards.js';
+import { createCard } from './card.js';
+import { openModal, closeModal, setupModal } from './modal.js';
 
-// @todo: DOM узлы
+const placesList = document.querySelector('.places__list');
+const imagePopup = document.querySelector('.popup_type_image');
+const imagePopupPicture = imagePopup.querySelector('.popup__image');
+const imagePopupCaption = imagePopup.querySelector('.popup__caption');
 
-// @todo: Функция создания карточки
+function handleDeleteCard(cardElement) {
+    cardElement.remove();
+}
 
-// @todo: Функция удаления карточки
+function handleLikeCard(likeButton) {
+    likeButton.classList.toggle('card__like-button_is-active');
+}
 
-// @todo: Вывести карточки на страницу
+function handleImageClick(cardData) {
+    imagePopupPicture.src = cardData.link;
+    imagePopupPicture.alt = cardData.name;
+    imagePopupCaption.textContent = cardData.name;
+    openModal(imagePopup);
+}
+
+const modals = document.querySelectorAll('.popup');
+modals.forEach(setupModal);
+
+initialCards.forEach((cardData) => {
+    const cardElement = createCard(cardData, {
+        handleDeleteCard,
+        handleLikeCard,
+        handleImageClick
+    });
+    placesList.append(cardElement);
+});
