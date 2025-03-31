@@ -1,35 +1,26 @@
-import { initialCards } from './cards.js';
-import { createCard } from './card.js';
-import { openModal, closeModal, setupModal } from './modal.js';
+const cardTemplateElement = document.querySelector('#card-template')
+const cardsContainer = document.querySelector('.places__list')
 
-const placesList = document.querySelector('.places__list');
-const imagePopup = document.querySelector('.popup_type_image');
-const imagePopupPicture = imagePopup.querySelector('.popup__image');
-const imagePopupCaption = imagePopup.querySelector('.popup__caption');
+function createCard(cardData, handleDelete) {
+    const cardElement = cardTemplateElement.content.querySelector('.card').cloneNode(true)
+    const deleteButton = cardElement.querySelector('.card__delete-button')
+    const cardImageElement = cardElement.querySelector('.card__image')
+    const cardTitleElement = cardElement.querySelector('.card__title')
 
-function handleDeleteCard(cardElement) {
-    cardElement.remove();
+    deleteButton.addEventListener('click', handleDelete)
+    deleteButton.targetElement = cardElement
+    
+    cardTitleElement.textContent = cardData.name
+    cardImageElement.src = cardData.link
+    cardImageElement.alt = cardData.name
+
+    return cardElement
 }
 
-function handleLikeCard(likeButton) {
-    likeButton.classList.toggle('card__like-button_is-active');
+function handleCardDelete(evt) {
+    evt.currentTarget.targetElement.remove()
 }
-
-function handleImageClick(cardData) {
-    imagePopupPicture.src = cardData.link;
-    imagePopupPicture.alt = cardData.name;
-    imagePopupCaption.textContent = cardData.name;
-    openModal(imagePopup);
-}
-
-const modals = document.querySelectorAll('.popup');
-modals.forEach(setupModal);
 
 initialCards.forEach((cardData) => {
-    const cardElement = createCard(cardData, {
-        handleDeleteCard,
-        handleLikeCard,
-        handleImageClick
-    });
-    placesList.append(cardElement);
-});
+    cardsContainer.append(createCard(cardData, handleCardDelete))
+})
