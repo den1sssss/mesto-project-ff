@@ -1,7 +1,7 @@
 import '../pages/index.css'; 
-import { initialCards } from './cards.js';
-import { createCard } from './card.js';
-import { openModal, closeModal, setupModal } from './modal.js';
+import { initialCards } from './components/cards.js';
+import { createCard } from './components/card.js';
+import { openModal, closeModal, setupModal } from './components/modal.js';
 import avatar from '../images/avatar.jpg';
 // DOM-элементы
 const cardTemplate = document.querySelector('#card-template');
