@@ -1,5 +1,13 @@
+export function deleteCard(cardElement) {
+  cardElement.remove();
+}
+
+export function toggleLike(likeButton) {
+  likeButton.classList.toggle('card__like-button_is-active');
+}
+
 // Функция создания карточки
-export function createCard(cardData, { handleDeleteCard, handleLikeCard, handleImageClick }) {
+export function createCard(cardData, { deleteCard, toggleLike, handleImageClick }) {
   const cardTemplate = document.querySelector('#card-template');
   const cardElement = cardTemplate.content.querySelector('.card').cloneNode(true);
   
@@ -14,9 +22,9 @@ export function createCard(cardData, { handleDeleteCard, handleLikeCard, handleI
   cardImage.alt = cardData.name;
   
   // Добавляем обработчики событий
-  deleteButton.addEventListener('click', () => handleDeleteCard(cardElement));
-  likeButton.addEventListener('click', () => handleLikeCard(likeButton));
+  deleteButton.addEventListener('click', () => deleteCard(cardElement));
+  likeButton.addEventListener('click', () => toggleLike(likeButton));
   cardImage.addEventListener('click', () => handleImageClick(cardData));
   
   return cardElement;
-} 
+}
