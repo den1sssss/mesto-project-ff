@@ -1,9 +1,8 @@
 // Конфигурация API
-//add my own auth key 
 const config = {
-  baseUrl: '',
+  baseUrl: 'https://nomoreparties.co/v1/cohort-mag-4/',
   headers: {
-    authorization: '',
+    authorization: '0019c1a3-1ad9-41dd-9377-34d72316aa0a',
     'Content-Type': 'application/json'
   }
 };
